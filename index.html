@@ -31,22 +31,21 @@
     border-radius: 12px;
     cursor: pointer;
     margin: 15px;
+    transition: transform 0.3s ease;
     z-index: 2;
   }
 
   #yesBtn {
     background-color: #ff4d6d;
     color: white;
+    transform: scale(1);
   }
 
   #noBtn {
     background-color: #adb5bd;
     color: white;
-    position: absolute;
-    z-index: 2;
   }
 
-  /* Mensaje esquina */
   .corner-text {
     position: fixed;
     bottom: 10px;
@@ -56,7 +55,6 @@
     z-index: 2;
   }
 
-  /* Corazones */
   .heart {
     position: fixed;
     bottom: -20px;
@@ -86,26 +84,37 @@
 </div>
 
 <script>
-  const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
   const question = document.getElementById("question");
 
-  // Botón No huye
-  noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+  const messages = [
+    "¿Segura? 😳",
+    "¿Por qué no?.. 🥺",
+    "Piénsalo bien 👀",
+    "Vamos, di que sí 😍",
+    "Última oportunidad 💘"
+  ];
+
+  let noClicks = 0;
+  let scale = 1;
+
+  noBtn.addEventListener("click", () => {
+    if (noClicks < messages.length) {
+      question.innerHTML = messages[noClicks];
+    }
+
+    noClicks++;
+    scale += 0.2;
+    yesBtn.style.transform = `scale(${scale})`;
   });
 
-  // Click en Sí
   yesBtn.addEventListener("click", () => {
-    question.innerHTML = "Sabía que sí querías 😍❤️";
+    question.innerHTML = "Sabía que sí querías bb 😍❤️";
     yesBtn.style.display = "none";
     noBtn.style.display = "none";
   });
 
-  // Corazones flotando
   function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
