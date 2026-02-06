@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>¿Quieres ser mi San Valentín?</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #ffe6eb;
+    text-align: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  h1 {
+    color: #d6336c;
+    z-index: 2;
+    padding: 10px;
+  }
+
+  button {
+    padding: 15px 35px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 15px;
+    z-index: 2;
+  }
+
+  #yesBtn {
+    background-color: #ff4d6d;
+    color: white;
+  }
+
+  #noBtn {
+    background-color: #adb5bd;
+    color: white;
+    position: absolute;
+    z-index: 2;
+  }
+
+  /* Mensaje esquina */
+  .corner-text {
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+    font-size: 14px;
+    color: #6c757d;
+    z-index: 2;
+  }
+
+  /* Corazones */
+  .heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(-110vh); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<h1 id="question">¿Quieres ser mi San Valentín? 💖</h1>
+
+<button id="yesBtn">Sí 💕</button>
+<button id="noBtn">No 💔</button>
+
+<div class="corner-text">
+  De: Pechas 💌<br>
+  Para: Ti 💖
+</div>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const question = document.getElementById("question");
+
+  // Botón No huye
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  });
+
+  // Click en Sí
+  yesBtn.addEventListener("click", () => {
+    question.innerHTML = "Sabía que sí querías 😍❤️";
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+  });
+
+  // Corazones flotando
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+    heart.style.fontSize = (16 + Math.random() * 20) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 7000);
+  }
+
+  setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>
